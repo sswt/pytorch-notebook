@@ -16,10 +16,8 @@ RUN apt-get update && apt-get install -y \
 # alias python='python3'
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-RUN pip install \
-    numpy \
-    torch \
-    jupyterlab
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
 EXPOSE 8888
