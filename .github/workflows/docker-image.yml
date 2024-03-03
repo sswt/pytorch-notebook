@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - 'main'
+    tags:
+      - '*'
 
 jobs:
     build:
@@ -33,7 +35,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pytorch-notebook:latest
+            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pytorch-notebook:${{ steps.vars.outputs.tag }} , ${{ secrets.DOCKER_HUB_USERNAME }}/pytorch-notebook:latest
 
         - name: Image digest
           run: echo ${{ steps.docker_build.outputs.digest }}
